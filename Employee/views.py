@@ -2,7 +2,7 @@ import email
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse
 from .models import *
@@ -47,4 +47,48 @@ def emp_login(request):
 
 
 def emp_home(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
     return render(request, 'emp_home.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')
+
+
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
+    error = ""
+    user = request.user
+    employee = EmployeeDetail.objects.get(user=user)
+    if request.method == 'POST':
+        first_name = request.POST['firstname']
+        last_name = request.POST['lastname']
+        employee_code = request.POST['empcode']
+        department = request.POST['department']
+        designation = request.POST['designation']
+        contact = request.POST['contact']
+        jdate = request.POST['jdate']
+        gender = request.POST['gender']
+
+        employee.user.first_name = first_name
+        employee.user.last_name = last_name
+        employee.empcode = employee_code
+        employee.empdept = department
+        employee.designation = designation
+        employee.contact = contact
+        employee.gender = gender
+        if jdate:
+             employee.joiningdate = jdate
+
+        try:
+            employee.save()
+            employee.user.save()
+            error = "no"
+
+        except:
+            error = "yes"
+
+    return render(request, 'profile.html', locals())

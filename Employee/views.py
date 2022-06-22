@@ -24,6 +24,8 @@ def registration(request):
         try:
             user = User.objects.create_user(first_name=first_name, last_name=last_name, username=email, email=email, password=password)
             EmployeeDetail.objects.create(user=user, empcode=employee_code)
+            EmployeeEducation.objects.create(user=user)
+            EmployeeExperience.objects.create(user=user)
             error = "no"
 
         except:
@@ -92,3 +94,51 @@ def profile(request):
             error = "yes"
 
     return render(request, 'profile.html', locals())
+
+
+def admin_login(request):
+    return render(request, 'admin_login.html')
+
+
+def my_experience(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
+
+    user = request.user
+    experience = EmployeeExperience.objects.get(user=user)
+
+    return render(request, 'myexperience.html', locals())
+
+
+def edit_experience(request):
+    if not request.user.is_authenticated:
+        return redirect('emp_login')
+    error = ""
+    user = request.user
+    experience = EmployeeExperience.objects.get(user=user)
+    if request.method == 'POST':
+        first_name = request.POST['firstname']
+        last_name = request.POST['lastname']
+        employee_code = request.POST['empcode']
+        department = request.POST['department']
+        designation = request.POST['designation']
+        contact = request.POST['contact']
+        jdate = request.POST['jdate']
+        gender = request.POST['gender']
+
+        experience.user.first_name = first_name
+        experience.user.last_name = last_name
+        experience.empcode = employee_code
+        experience.empdept = department
+        experience.designation = designation
+        experience.contact = contact
+        experience.gender = gender
+
+        try:
+            experience.save()
+            error = "no"
+
+        except:
+            error = "yes"
+
+    return render(request, 'edit_experience.html', locals())

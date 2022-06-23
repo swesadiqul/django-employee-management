@@ -66,4 +66,18 @@
     </div>
 </div>
 
+
+{% if error == "no" %}
+    <script>
+        alert("Experience Details Has Been Updated!");
+        window.location = ('{% url "edit_myexperience" %}');
+    </script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong, try again");
+</script>
+{% endif %}
+
 {% endblock main %}

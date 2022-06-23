@@ -26,7 +26,7 @@ class EmployeeEducation(models.Model):
     schoolclggra = models.CharField(max_length=100, null=True)
     yearofpassinggra = models.CharField(max_length=20, null=True)
     percentagegra = models.CharField(max_length=30, null=True)
-    coursepg = models.CharField(max_length=100, null=True)
+    coursessc = models.CharField(max_length=100, null=True)
     schoolclgssc = models.CharField(max_length=100, null=True)
     yearofpassingssc = models.CharField(max_length=20, null=True)
     percentagessc = models.CharField(max_length=30, null=True)

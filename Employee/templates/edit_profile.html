@@ -1,0 +1,92 @@
+{% extends 'admin_base.html' %}
+
+{% block main %}
+
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">Edit Employee Profile Details</h5>
+        <div class="container-fluid">
+            <form action="" method="post" name="signup" onsubmit="return checkpassword();">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_firstname">First Name</label>
+                            <input type="text" name="firstname" id="id_firstname" class="form-control" placeholder="First name ..." pattern="[A-Z a-z]+" value="{{employee.user.first_name}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_lastname">Last Name</label>
+                            <input type="text" name="lastname" id="id_lastname" class="form-control" placeholder="Surename ..." pattern="[A-Z a-z]+" value="{{employee.user.last_name}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="id_empcode">Employee Code</label>
+                            <input type="text" name="empcode" id="id_empcode" class="form-control" placeholder="Your employee code ..." pattern="[0-9]+" value="{{employee.empcode}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_dept">Employee Department</label>
+                            <input type="text" name="department" id="id_dept" class="form-control" placeholder="Department ..." value="{{employee.empdept}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_designation">Employee Designation</label>
+                            <input type="text" name="designation" id="id_designation" class="form-control" placeholder="Designation ..." value="{{employee.designation}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_contact">Contact</label>
+                            <input type="text" name="contact" id="id_contact" class="form-control" placeholder="Contact number ..." value="{{employee.contact}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_email">Email Address</label>
+                            <input type="email" name="email" id="id_email" class="form-control" placeholder="Email address ..." value="{{employee.user.email}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_jdate">Joining Date [{{employee.joiningdate}}]</label>
+                            <input type="date" name="jdate" id="id_jdate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_gender">Gender [{{employee.gender}}]</label>
+                            <select name="gender" id="id_gender" class="form-control">
+                                <option value="None">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary px-5">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% if error == "no" %}
+    <script>
+        alert("Employee profile details has been updated !");
+        window.location = ('{% url "edit_profile" employee.id %}');
+    </script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong, try again");
+</script>
+{% endif %}
+
+{% endblock main %}

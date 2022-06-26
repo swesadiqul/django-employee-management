@@ -19,13 +19,13 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a>
+        <a class="nav-link {% if request.path == '/' %} active {% endif %}" href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'registration' %}"><i class="fa fa-user-plus"></i> Employee Signup</a>
+        <a class="nav-link {% if request.path == '/registration/' %} active {% endif %}" href="{% url 'registration' %}"><i class="fa fa-user-plus"></i> Employee Signup</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'emp_login' %}"><i class="fas fa-sign-in-alt"></i> Employee Login</a>
+        <a class="nav-link {% if request.path == '/emp_login/' %} active {% endif %}" href="{% url 'emp_login' %}"><i class="fas fa-sign-in-alt"></i> Employee Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'admin_login' %}"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
@@ -33,7 +33,6 @@
     </ul>
   </div>
 </nav>
-<br>
 
     <!-- JavaScripts Files -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>

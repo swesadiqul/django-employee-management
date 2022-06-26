@@ -6,10 +6,16 @@
 .nav-link{
     color: white !important;
     font-size: 14px !important;
+    margin-left: 15px !important;
 }
 
 .nav-link:hover{
     color: white !important;
     background-color: dodgerblue !important;
+    border-radius: 15px;
+}
+
+.active{
+    background-color: dodgerblue;
     border-radius: 15px;
 }
